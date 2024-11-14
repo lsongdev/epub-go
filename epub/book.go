@@ -45,11 +45,18 @@ func (p *Book) ReadCover() ([]byte, error) {
 }
 
 func (p *Book) Title() string {
-	return p.Opf.Metadata.Title[0]
+	if len(p.Opf.Metadata.Title) > 0 {
+		return p.Opf.Metadata.Title[0]
+	}
+	return ""
 }
 
 func (p *Book) Author() string {
-	return p.Opf.Metadata.Creator[0].Data
+	// return p.Opf.Metadata.Creator[0].Data
+	if len(p.Opf.Metadata.Creator) > 0 {
+		return p.Opf.Metadata.Creator[0].Data
+	}
+	return ""
 }
 
 // Close close file reader
