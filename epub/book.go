@@ -37,7 +37,11 @@ func (p *Book) ReadAll(n string) ([]byte, error) {
 }
 
 func (p *Book) ReadCover() ([]byte, error) {
-	return p.readBytes(p.Opf.GetManifestItem("cover").Href)
+	cover := p.Opf.GetManifestItem("cover")
+	if cover == nil {
+		return nil, fmt.Errorf("cover not found")
+	}
+	return p.readBytes(cover.Href)
 }
 
 func (p *Book) Title() string {
