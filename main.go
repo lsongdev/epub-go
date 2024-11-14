@@ -2,8 +2,9 @@ package main
 
 import (
 	"log"
+	"os"
 
-	"github.com/song940/epub-go/epub"
+	"github.com/lsongdev/epub-go/epub"
 )
 
 func main() {
@@ -13,6 +14,9 @@ func main() {
 	}
 	defer book.Close()
 	log.Println(book.Files())
-	log.Println(book.Opf.Metadata.Title[0])
+	log.Println(book.Title())
+	log.Println(book.Author())
 	log.Println(book.Opf.Metadata.Description)
+	cover, _ := book.ReadCover()
+	os.WriteFile(book.Title()+".png", cover, 0644)
 }

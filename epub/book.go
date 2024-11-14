@@ -32,6 +32,22 @@ func (p *Book) Files() []string {
 	return fns
 }
 
+func (p *Book) ReadAll(n string) ([]byte, error) {
+	return p.readBytes(p.filename(n))
+}
+
+func (p *Book) ReadCover() ([]byte, error) {
+	return p.readBytes(p.Opf.GetManifestItem("cover").Href)
+}
+
+func (p *Book) Title() string {
+	return p.Opf.Metadata.Title[0]
+}
+
+func (p *Book) Author() string {
+	return p.Opf.Metadata.Creator[0].Data
+}
+
 // Close close file reader
 func (p *Book) Close() {
 	p.fd.Close()
